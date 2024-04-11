@@ -61,8 +61,8 @@ def show_some_info():
         match user_choice:
             case "1": show_all_databases()
             case "2": show_all_tables()
-            case "3": pass
-            case "4": pass
+            case "3": show_table_columns()
+            case "4": show_all_data_in_table()
             case "5": pass
             case "0": return
             case _: show_all_databases()
