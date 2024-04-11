@@ -98,6 +98,18 @@ def show_table_columns():
     except:
         print("Something wrong. Operation is not completed.")
 
+
+def show_all_data_in_table():
+    try:
+        table_name = input("Table name: ")
+        query = f"""SELECT * FROM {table_name}"""
+        cursor.execute(query)
+        for db in cursor:
+            print(db)
+    except:
+        print("Something wrong. Operation is not completed.")
+
+
 try:
     with pymysql.connect(host="localhost", port=3307, user="root", password="") as connection:
         print(connection, "OK")
