@@ -86,11 +86,35 @@ def insert_info_to_table():
 
 
 def delete_info_from_table():
-    pass
+    show_all_tables()
+    table = input("Table name: ")
+
+    query = f"""SELECT * FROM {table}"""
+    cursor.execute(query)
+    print("All columns:")
+    for column in cursor:
+        print(*column)
+
+
+    value = int(input("enter id where need to delete: "))
+
+    query = f"""DELETE FROM {table} WHERE id = %s"""
+
+    cursor.execute(query, value)
+    connection.commit()
 
 
 def update_info_in_table():
-    pass
+    teacher_id = int(input("teacher_id: "))
+    query = f"""UPDATE teachers SET first_name = %s, second_name = %s, age = %s WHERE id = {teacher_id}"""
+    values = (
+        input("firstname: "),
+        input("second name: "),
+        int(input("age: "))
+    )
+    cursor.execute(query, values)
+    connection.commit()
+
 
 
 def show_some_info():
