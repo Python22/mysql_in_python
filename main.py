@@ -45,21 +45,42 @@ def insert_info_to_table():
         cursor.execute(query)
         print("All columns:")
         for column in cursor:
-            print(column)
+            print(*column)
         match table:
             case "teachers":
                 query = """INSERT INTO teachers (first_name, second_name, age) VALUES (%s, %s, %s)"""
                 values = (
                     input("Insert a firstname: "),
                     input("Insert a second name: "),
-                    int(input("Insert a second name: "))
+                    int(input("Insert an age: "))
                 )
                 cursor.execute(query, values)
                 connection.commit()
             case "groups":
-                pass
+                query = """INSERT INTO teachers (name, auditory) VALUES (%s, %s)"""
+                values = (
+                    input("Insert a name: "),
+                    input("Insert an auditory: ")
+                )
+                cursor.execute(query, values)
+                connection.commit()
             case "teachers_and_groups":
-                pass
+                query = f"""SELECT * FROM TEACHERS"""
+                cursor.execute(query)
+                for teacher in cursor:
+                    print(f"id: {teacher[0]}; firstname: {teacher[1]}; lastname: {teacher[2]}")
+                teacher_id = int(input("Insert teacher id: "))
+
+                query = f"""SELECT * FROM GROUPS"""
+                cursor.execute(query)
+                for group in cursor:
+                    print(f"id: {group[0]}; name: {group[1]}; auditory: {group[2]}")
+                group_id = int(input("Insert group id: "))
+
+                query = """INSERT INTO teachers (teacher_id, groups_id) VALUES (%s, %s)"""
+                values = (teacher_id, group_id)
+                cursor.execute(query, values)
+                connection.commit()
     except:
         print("Something wrong. Operation is not completed.")
 
@@ -73,6 +94,8 @@ def update_info_in_table():
 
 
 def show_some_info():
+    print("\n\n")
+    print("-" * 100)
     print("1. Show all databases.")
     print("2. Show all tables in current database.")
     print("3. Show all columns in some table.")
@@ -98,7 +121,7 @@ def show_all_databases():
         cursor.execute("SHOW DATABASES")
         print("All databases:")
         for db in cursor:
-            print(db)
+            print(*db)
     except:
         print("Something wrong. Operation is not completed.")
 
@@ -108,7 +131,7 @@ def show_all_tables():
         print("All tables in this database:")
         cursor.execute("SHOW TABLES")
         for db in cursor:
-            print(db)
+            print(*db)
     except:
         print("Something wrong. Operation is not completed.")
 
@@ -119,7 +142,7 @@ def show_table_columns():
         query = f"""SHOW COLUMNS FROM {table_name}"""
         cursor.execute(query)
         for db in cursor:
-            print(db)
+            print(*db)
     except:
         print("Something wrong. Operation is not completed.")
 
@@ -130,7 +153,7 @@ def show_all_data_in_table():
         query = f"""SELECT * FROM {table_name}"""
         cursor.execute(query)
         for db in cursor:
-            print(db)
+            print(*db)
     except:
         print("Something wrong. Operation is not completed.")
 
@@ -143,6 +166,8 @@ try:
             cursor.execute("USE ACADEMY")
 
             while True:
+                print("\n\n")
+                print("-" * 100)
                 print("1. Create database.")
                 print("2. Change database.")
                 print("3. Create table in database.")
