@@ -55,10 +55,19 @@ def show_some_info():
     print("3. Show all columns in some table.")
     print("4. Show all data in some table.")
     print("5. Show others info.")
-    print("6. Back.")
-    user_choice = input("Your choice: ")
-    match user_choice:
-        case "1": show_all_databases()
+    print("0. Back.")
+    try:
+        user_choice = input("Your choice: ")
+        match user_choice:
+            case "1": show_all_databases()
+            case "2": show_all_tables()
+            case "3": show_all_databases()
+            case "4": show_all_databases()
+            case "5": show_all_databases()
+            case "0": return
+            case _: show_all_databases()
+    except:
+        print("Something wrong. Operation is not completed.")
 
 
 def show_all_databases():
@@ -69,6 +78,14 @@ def show_all_databases():
     except:
         print("Something wrong. Operation is not completed.")
 
+
+def show_all_tables():
+    try:
+        cursor.execute("SHOW TABLES")
+        for db in cursor:
+            print(db)
+    except:
+        print("Something wrong. Operation is not completed.")
 
 
 
