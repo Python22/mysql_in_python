@@ -57,7 +57,19 @@ def show_some_info():
     print("5. Show others info.")
     print("6. Back.")
     user_choice = input("Your choice: ")
-    
+    match user_choice:
+        case "1": show_all_databases()
+
+
+def show_all_databases():
+    try:
+        cursor.execute("SHOW DATABASES")
+        for db in cursor:
+            print(db)
+    except:
+        print("Something wrong. Operation is not completed.")
+
+
 
 
 try:
