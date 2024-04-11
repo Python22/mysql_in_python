@@ -91,7 +91,7 @@ def show_all_tables():
 def show_table_columns():
     try:
         table_name = input("Table name: ")
-        query = f"""SHOW TABLES FROM {table_name}"""
+        query = f"""SHOW COLUMNS FROM {table_name}"""
         cursor.execute(query)
         for db in cursor:
             print(db)
