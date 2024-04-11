@@ -57,7 +57,7 @@ def insert_info_to_table():
                 cursor.execute(query, values)
                 connection.commit()
             case "groups":
-                query = """INSERT INTO teachers (name, auditory) VALUES (%s, %s)"""
+                query = """INSERT INTO groups (name, auditory) VALUES (%s, %s)"""
                 values = (
                     input("Insert a name: "),
                     input("Insert an auditory: ")
