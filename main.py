@@ -88,12 +88,59 @@ def show_all_tables():
         print("Something wrong. Operation is not completed.")
 
 
+def show_table_columns():
+    try:
+        table_name = input("Table name: ")
+        query = f"""SHOW TABLES FROM {table_name}"""
+        cursor.execute(query)
+        for db in cursor:
+            print(db)
+    except:
+        print("Something wrong. Operation is not completed.")
 
 try:
     with pymysql.connect(host="localhost", port=3307, user="root", password="") as connection:
         print(connection, "OK")
         with connection.cursor() as cursor:
-            # cursor.execute("SHOW DATABASES")
+
+            cursor.execute("USE ACADEMY")
+
+            while True:
+                print("1. Create database.")
+                print("2. Change database.")
+                print("3. Create table in database.")
+                print("4. Insert info in to a table.")
+                print("5. Delete info from a table.")
+                print("6. Update info in a table.")
+                print("7. Show some info.")
+                print("0. Quit.")
+                user_choice = input("Your choice: ")
+                match user_choice:
+                    case "1": create_database()
+                    case "2": change_database()
+                    case "3": create_table()
+                    case "4": insert_info_to_table()
+                    case "5": delete_info_from_table()
+                    case "6": update_info_in_table()
+                    case "7": show_some_info()
+                    case "0": quit()
+                    case _: print("Unknown command. Try again.")
+
+
+except pymysql.Error as e:
+    print(e)
+
+
+
+
+
+
+
+
+
+
+
+# cursor.execute("SHOW DATABASES")
             # for db in cursor:
             #     print(db)
             #
@@ -154,38 +201,6 @@ try:
             # cursor.execute("SELECT * FROM teachers")
             # for line in cursor:
             #     print(line)
-
-
-
-            cursor.execute("USE ACADEMY")
-
-            while True:
-                print("1. Create database.")
-                print("2. Change database.")
-                print("3. Create table in database.")
-                print("4. Insert info in to a table.")
-                print("5. Delete info from a table.")
-                print("6. Update info in a table.")
-                print("7. Show some info.")
-                print("0. Quit.")
-                user_choice = input("Your choice: ")
-                match user_choice:
-                    case "1": create_database()
-                    case "2": change_database()
-                    case "3": create_table()
-                    case "4": insert_info_to_table()
-                    case "5": delete_info_from_table()
-                    case "6": update_info_in_table()
-                    case "7": show_some_info()
-                    case "0": quit()
-                    case _: print("Unknown command. Try again.")
-
-
-except pymysql.Error as e:
-    print(e)
-
-
-
 
 
 
