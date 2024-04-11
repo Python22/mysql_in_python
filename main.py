@@ -38,7 +38,30 @@ def create_table():
 
 
 def insert_info_to_table():
-    pass
+    show_all_tables()
+    table = input("Name of table: ")
+    try:
+        query = f"""SHOW COLUMNS FROM {table}"""
+        cursor.execute(query)
+        print("All columns:")
+        for column in cursor:
+            print(column)
+        match table:
+            case "teachers":
+                query = """INSERT INTO teachers (first_name, second_name, age) VALUES (%s, %s, %s)"""
+                values = (
+                    input("Insert a firstname: "),
+                    input("Insert a second name: "),
+                    int(input("Insert a second name: "))
+                )
+                cursor.execute(query, values)
+                connection.commit()
+            case "groups":
+                pass
+            case "teachers_and_groups":
+                pass
+    except:
+        print("Something wrong. Operation is not completed.")
 
 
 def delete_info_from_table():
@@ -73,6 +96,7 @@ def show_some_info():
 def show_all_databases():
     try:
         cursor.execute("SHOW DATABASES")
+        print("All databases:")
         for db in cursor:
             print(db)
     except:
@@ -81,6 +105,7 @@ def show_all_databases():
 
 def show_all_tables():
     try:
+        print("All tables in this database:")
         cursor.execute("SHOW TABLES")
         for db in cursor:
             print(db)
